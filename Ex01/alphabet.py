@@ -1,4 +1,5 @@
 import random
+from re import I
 a = 10
 b = 2
 x = list()
@@ -33,15 +34,16 @@ def kaitou(kotae):
     q = int(input("欠損文字はいくつあるでしょうか？:"))
     if q == b:
         print("正解です。それでは、具体的に欠損文字を一つずつ入力してください")
-        while True:
+        for i in range(saidai):
             r = input("一つ目の文字を入力してください")
             s = input("二つ目の文字を入力してください")
             if r in kotae and s in kotae:
                 print("正解です！！！！！！！！")
-                False
                 return True
             else:
                 print("不正解です。またチャレンジしてください")
+                if i == saidai-1:
+                    return True
     else:
         print("不正解です。またチャレンジしてください")
 
