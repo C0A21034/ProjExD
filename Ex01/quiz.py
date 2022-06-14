@@ -16,7 +16,7 @@ def shutudai():
 def kaito(kotae):
     a = input("答えるんだ：")
     if a in kotae:
-        print("正解！！！！！！！！！！！！！")
+        print("正解！！！！！！！！！！")
     else:
         print("出直してこい")
 
