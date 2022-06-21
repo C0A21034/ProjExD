@@ -1,3 +1,4 @@
+from dataclasses import replace
 import tkinter as tk
 import tkinter.messagebox as tkm
 
@@ -7,7 +8,21 @@ def button_click(event):
     num = btn["text"]
     if num == "=":
         e = entry.get()
-        ans = eval(e)
+        if "×" in e:
+            try:
+                ans = eval(e.replace("×", "*"))
+            except SyntaxError:
+                tkm.showerror("エラー", "数式に問題があります")
+        elif "÷" in e:
+            try:
+                ans = eval(e.replace("÷", "/"))
+            except SyntaxError:
+                tkm.showerror("エラー", "数式に問題があります")
+        else:
+            try:
+                ans = eval(e)
+            except SyntaxError:
+                tkm.showerror("エラー", "数式に問題があります")
         entry.delete(0, tk.END)
         entry.insert(tk.END, ans)
 
