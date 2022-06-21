@@ -1,4 +1,3 @@
-from dataclasses import replace
 import tkinter as tk
 import tkinter.messagebox as tkm
 
@@ -30,11 +29,15 @@ def button_click(event):
         entry.delete(0, tk.END)
 
     elif num == "破壊":
-        tkm.showwarning("どんまい", "出来ません♨")
+        act = tkm.askyesno("え？", "終わっちゃう？")
+        if act == True:
+            quit()
 
     else:
         #tkm.showinfo("報告", f"[{num}]が押されました")
         entry.insert(tk.END, num)
+
+
 
 if __name__ == "__main__":
     root = tk.Tk()
@@ -57,7 +60,8 @@ if __name__ == "__main__":
                         text=f"{k}",
                         font=("Times New Roman", 30),
                         width=4,
-                        height=2)
+                        height=2,
+                        cursor="cross")
         btn.grid(row=a, column=b)
 
         b+=1
