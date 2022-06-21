@@ -7,16 +7,22 @@ def button_click(event):
     num = btn["text"]
     if num == "=":
         e = entry.get()
+
+        ##ここからeにある×を*と認識できるようにしている。
         if "×" in e:
             try:
                 ans = eval(e.replace("×", "*"))
             except SyntaxError:
                 tkm.showerror("エラー", "数式に問題があります")
+
+        ##ここからeにある÷を/と認識できるようにしている。
         elif "÷" in e:
             try:
                 ans = eval(e.replace("÷", "/"))
             except SyntaxError:
                 tkm.showerror("エラー", "数式に問題があります")
+
+        ##掛け算割り算じゃない場合はそのまま計算
         else:
             try:
                 ans = eval(e)
