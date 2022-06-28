@@ -38,7 +38,7 @@ def main_proc():
 
 def clear():
     if cx == 1350 and cy == 750:
-        ask = tkm.showinfo("クリア！", "脱出成功！！！！！！！！！！")
+        ask = tkm.showinfo("クリア！", "脱出成功！！！！！！！！！！！！！！！！！！！")
         if ask == "ok":
             quit()
     root.after(10, clear)
