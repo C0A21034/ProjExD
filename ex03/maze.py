@@ -2,16 +2,16 @@ import tkinter as tk
 import tkinter.messagebox as tkm
 import maze_maker as mm
 
-def key_down(event):
+def key_down(event):    #キーが押された時の挙動
     global key
     key = event.keysym
     #print(f"{key}が押されました")
 
-def key_up(event):
+def key_up(event):  #キーが離された時の挙動
     global key
     key = ""
 
-def main_proc():
+def main_proc():    #こうかとんの動きや特定のキーを押した時の反応
     global cx, cy, mx, my
     if key == "Up":
         if maze_bg[my-1][mx] == 0:
@@ -25,10 +25,10 @@ def main_proc():
     elif key == "Right":
         if maze_bg[my][mx+1] == 0:
             mx += 1
-    elif key == "q":
+    elif key == "q":    #ゲームを終了するか尋ねる機能
         act = tkm.askyesno("確認", "終了しますか？")
         if act == True:
-            quit()
+            quit()  #「はい」をクリックすとゲームを終了する
     else:
         pass
 
@@ -36,11 +36,11 @@ def main_proc():
     can.coords("tori", cx, cy)
     root.after(100, main_proc)
 
-def clear():
+def clear():    #こうかとんがゴールについた際の反応
     if cx == 1350 and cy == 750:
         ask = tkm.showinfo("クリア！", "脱出成功！！！！！！！！！！！！！！！！！！！")
         if ask == "ok":
-            quit()
+            quit()  #ゲーム終了
     root.after(10, clear)
 
 if __name__ == "__main__":
