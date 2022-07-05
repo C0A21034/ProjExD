@@ -1,4 +1,5 @@
 import random
+import tkinter.messagebox as tkm
 import pygame as pg
 import sys
 
@@ -27,14 +28,15 @@ def main():
     bmimg_rct.centerx = random.randint(0, screen_rct.width)
     bmimg_rct.centery = random.randint(0, screen_rct.height)
 
-    vx, vy = +1, -1
+    vx, vy = +1, +1
+    mx, my = 5, 5
 
     while True:
         screen_sfc.blit(bgimg_sfc, bgimg_rct)
 
         for event in pg.event.get():
             if event.type == pg.QUIT: return
-        
+
         key_states = pg.key.get_pressed()
         if key_states[pg.K_UP] == True: kkimg_rct.centery -=1
         if key_states[pg.K_DOWN] == True: kkimg_rct.centery +=1
@@ -49,15 +51,23 @@ def main():
         screen_sfc.blit(kkimg_sfc, kkimg_rct)
 
         bmimg_rct.move_ip(vx,vy)
-        screen_sfc.blit(bmimg_sfc, bmimg_rct)
 
-        
+        screen_sfc.blit(bmimg_sfc, bmimg_rct)
 
         yoko, tate = check_bound(bmimg_rct, screen_rct)
         vx *= yoko
         vy *= tate
 
-        if kkimg_rct.colliderect(bmimg_rct): return
+        if kkimg_rct.colliderect(bmimg_rct):
+            #ask = tkm.showwarning("ガメオベラ", "GAME OVER")
+            #if ask == "はい":
+                return
+        
+        time = pg.time.get_ticks()
+        for i in range(1, 100):
+            if time == 1000*i:
+                vx += 2
+                vy += 2
 
         pg.display.update()
         clock.tick(1000)
