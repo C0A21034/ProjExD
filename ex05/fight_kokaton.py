@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 import random
+import tkinter.messagebox as tkm
 
 
 class Screen:
@@ -47,6 +48,22 @@ class Bird:
                 self.rct.centerx -= 1
         self.blit(scr)
 
+
+class shot:
+    def __init__(self, chr: Bird):
+        self.sfc = pg.Surface((2*10, 2*10)) # Surface
+        self.sfc.set_colorkey((0, 0, 0)) 
+        pg.draw.circle(self.sfc, (125, 0, 125), (10, 10), 10)
+        self.rct = self.sfc.get_rect()
+        self.rct.center = chr.rct.center
+        self.vx = 3.0
+
+    def blit(self, scr: Screen):
+        scr.sfc.blit(self.sfc, self.rct)
+
+    def update(self, scr: Screen):
+        self.rct.move_ip(self.vx, 0)
+        self.blit(scr)
 
 
 class Bomb:
@@ -102,6 +119,7 @@ def main():
     # bmimg_rct.centery = random.randint(0, screen_rct.height)
     # vx, vy = +1, +1 # 練習6
     bkb = Bomb((255,0,0), 10, (+1,+1), scr)
+    ss = 0
 
     while True:
         scr.blit()
@@ -110,6 +128,12 @@ def main():
         # 練習2
         for event in pg.event.get():
             if event.type == pg.QUIT: return
+            if event.type == pg.KEYDOWN and event.key == pg.K_SPACE:
+                    ss = shot(kkt)
+            if event.type == pg.KEYDOWN and event.key == pg.K_q:
+                tkm.askquestion("オワオワリ？", "やめますかかかか？")
+                if "はい":
+                    quit()
 
         # 練習4
         # key_states = pg.key.get_pressed() # 辞書
@@ -126,6 +150,12 @@ def main():
         # screen_sfc.blit(kkimg_sfc, kkimg_rct)
         kkt.update(scr)
         bkb.update(scr)
+        if ss != 0:
+            ss.update(scr)
+            if ss.rct.colliderect(bkb.rct):
+                tkm.showinfo("ナイス", "撃墜完了！") 
+                if True:
+                    quit()
 
         # 練習6
         # bmimg_rct.move_ip(vx, vy)
@@ -139,7 +169,9 @@ def main():
         # 練習8
         #if kkimg_rct.colliderect(bmimg_rct): return
         if kkt.rct.colliderect(bkb.rct):
-            return 
+            tkm.showwarning("負けどにあ", "あなた死亡")
+            if True:
+                quit()
 
         pg.display.update()
         clock.tick(1000)
@@ -155,6 +187,9 @@ def check_bound(rct, scr_rct):
     if rct.left < scr_rct.left or scr_rct.right  < rct.right : yoko = -1 # 領域外
     if rct.top  < scr_rct.top  or scr_rct.bottom < rct.bottom: tate = -1 # 領域外
     return yoko, tate
+
+#def check_hit(rct, scr_rct):
+    #if rct.left < scr_rct.left or scr_rct.right  < rct.right : None # 領域外
 
 
 
